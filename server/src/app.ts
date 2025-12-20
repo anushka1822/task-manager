@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.routes';
 import taskRoutes from './routes/task.routes';
 const app: Application = express();
 
+app.set("trust proxy", 1);
+
 // --- Middlewares ---
 // 1. CORS: Allow requests from your Frontend
 app.use((req, res, next) => {
