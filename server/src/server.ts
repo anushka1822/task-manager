@@ -16,7 +16,7 @@ const server = http.createServer(app);
 // Initialize Socket.io (We will add logic here later)
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173", "https://task-manager-t0te.onrender.com"],
     credentials: true,
   },
 });
