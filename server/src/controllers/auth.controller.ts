@@ -5,8 +5,8 @@ import * as authService from "../services/auth.service";
 // Cookie Configuration
 const COOKIE_OPTIONS = {
   httpOnly: true, // Prevent client-side JS from reading the cookie
-  secure: process.env.NODE_ENV === "production", // HTTPS only in production
-  sameSite: "lax" as const, // Protects against CSRF
+  secure: true, // Always true for cross-site (Render is HTTPS)
+  sameSite: "none" as const, // Allow cross-site usage
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 Days
 };
 
