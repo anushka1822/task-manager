@@ -20,7 +20,7 @@ export const useSocket = () => {
         }
 
         if (!socket) {
-            socket = io(import.meta.env.VITE_API_URL || 'http://localhost:3000', {
+            socket = io(import.meta.env.VITE_API_URL || 'https://task-manager-t0te.onrender.com', {
                 withCredentials: true,
                 autoConnect: true,
                 transports: ['websocket'], // Force websocket to avoid polling 400 errors
