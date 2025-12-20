@@ -25,8 +25,8 @@ app.use(cookieParser());
 app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });
 });
-app.use('/api/auth', authRoutes);
-app.use('/api/tasks', taskRoutes);
+app.use('/auth', authRoutes);
+app.use('/tasks', taskRoutes);
 // --- Global Error Handler (Required by PDF for consistent responses) ---
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
