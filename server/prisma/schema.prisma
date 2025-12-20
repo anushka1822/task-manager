@@ -1,0 +1,59 @@
+// server/prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enum for Task Priority [cite: 19]
+enum Priority {
+  Low
+  Medium
+  High
+  Urgent
+}
+
+// Enum for Task Status [cite: 20]
+enum Status {
+  ToDo      @map("To Do") // Mapped to match the strict naming if needed
+  InProgress @map("In Progress")
+  Review
+  Completed
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String   // [cite: 13]
+  email     String   @unique
+  password  String   // [cite: 11]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  createdTasks  Task[] @relation("TaskCreator")
+  assignedTasks Task[] @relation("TaskAssignee")
+}
+
+model Task {
+  id          String   @id @default(uuid())
+  title       String   @db.VarChar(100) // Max 100 chars 
+  description String?  // Multi-line support 
+  dueDate     DateTime // 
+  
+  priority    Priority @default(Medium) // [cite: 19]
+  status      Status   @default(ToDo)   // [cite: 20]
+
+  // Relationships
+  creatorId   String   // 
+  creator     User     @relation("TaskCreator", fields: [creatorId], references: [id])
+
+  assignedToId String? //  - Nullable because a task might not be assigned immediately
+  assignee     User?   @relation("TaskAssignee", fields: [assignedToId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
